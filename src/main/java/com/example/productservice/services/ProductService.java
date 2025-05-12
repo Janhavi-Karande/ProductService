@@ -1,6 +1,6 @@
-package com.example.productcatalogservice.services;
+package com.example.productservice.services;
 
-import com.example.productcatalogservice.models.Product;
+import com.example.productservice.models.Product;
 
 import java.util.List;
 
