@@ -5,8 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ProductNotFoundExceptionDto {
+public class CategoryNotFoundExceptionDto {
+    private String categoryName;
     private String message;
     private String resolutionDetails;
-    private Long productId;
+
 }

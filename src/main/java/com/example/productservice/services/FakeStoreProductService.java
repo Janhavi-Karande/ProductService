@@ -28,7 +28,7 @@ public class FakeStoreProductService implements ProductService{
         FakeStoreProductDto fakeStoreProductDto = fakeStoreProductDtoResponseEntity.getBody();
 
         if(fakeStoreProductDto == null){
-            throw new ProductNotFoundException("Product with id " +productId+ " does not exits!");
+            throw new ProductNotFoundException(productId, "Product with id " +productId+ " does not exits!");
         }
         System.out.println(fakeStoreProductDto);
 
@@ -57,8 +57,8 @@ public class FakeStoreProductService implements ProductService{
     }
 
     @Override
-    public Product deleteProduct(Product product) {
-        return null;
+    public void deleteProduct(Product product) {
+
     }
 
     // convert fakeStoreProductDto object to Product object

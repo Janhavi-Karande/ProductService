@@ -1,6 +1,8 @@
 package com.example.productservice.controllers;
 
 import com.example.productservice.dtos.ExceptionDto;
+import com.example.productservice.dtos.ProductNotFoundExceptionDto;
+import com.example.productservice.exceptions.CategoryNotFoundException;
 import com.example.productservice.exceptions.ProductNotFoundException;
 import com.example.productservice.models.Product;
 import com.example.productservice.services.FakeStoreProductService;
@@ -20,7 +22,7 @@ public class ProductController {
     private RestTemplate restTemplate;
     private ProductService productService;
 
-    public ProductController(@Qualifier("fakeStoreProductService") ProductService productService,
+    public ProductController(@Qualifier("productServiceImpl") ProductService productService,
                              RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
         this.productService = productService;
@@ -31,36 +33,36 @@ public class ProductController {
     public ResponseEntity<Product> getSingleProduct(@PathVariable("id") Long productId) throws ProductNotFoundException {
 
 
-        ResponseEntity<Product> productResponseEntity;
-        Product product = null;
-
-        try{
-            product = productService.getSingleProduct(productId);
-            productResponseEntity = new ResponseEntity<>(product, HttpStatus.OK);
-        }
-        catch (ProductNotFoundException e){
-            e.printStackTrace();
-            productResponseEntity = new ResponseEntity<>(product, HttpStatus.NOT_FOUND);
-        }
-        catch (RuntimeException e){
-            e.printStackTrace();
-            productResponseEntity = new ResponseEntity<>(product, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+       //       Product product = null;
+//
+//        try{
+//            product = productService.getSingleProduct(productId);
+//            productResponseEntity = new ResponseEntity<>(product, HttpStatus.OK);
+//        }
+//        catch (ProductNotFoundException e){
+//            e.printStackTrace();
+//            productResponseEntity = new ResponseEntity<>(product, HttpStatus.NOT_FOUND);
+//        }
+//        catch (RuntimeException e){
+//            e.printStackTrace();
+//            productResponseEntity = new ResponseEntity<>(product, HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
 
         // the exception occurred here will be handled by controller advice(global exception handler
-//        ResponseEntity<Product> productResponseEntity = new ResponseEntity<>(productService.getSingleProduct(productId),
-//                HttpStatus.OK);
+        ResponseEntity<Product> productResponseEntity = new ResponseEntity<>(productService.getSingleProduct(productId),
+                HttpStatus.OK);
 
         return productResponseEntity;
     }
 
     @GetMapping("/")
     public List<Product> getAllProducts() {
+
         return productService.getAllProducts();
     }
 
-    @PostMapping()
-    public Product createProduct(@RequestBody Product product) {
+    @PostMapping
+    public Product createProduct(@RequestBody Product product) throws CategoryNotFoundException {
         return productService.createProduct(product);
     }
 
@@ -70,12 +72,13 @@ public class ProductController {
     }
 
     // this method will get more priority than the exception handler in the controller advice
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ExceptionDto> handleRuntimeException() {
-
-        ExceptionDto exceptionDto = new ExceptionDto();
-        exceptionDto.setMessage("Something went wrong in controller.");
-
-        return new ResponseEntity<>(exceptionDto, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+//    @ExceptionHandler(ProductNotFoundException.class)
+//    public ResponseEntity<ProductNotFoundExceptionDto> handleProductNotFoundException() {
+//
+//        ProductNotFoundExceptionDto exceptionDto = new ProductNotFoundExceptionDto();
+//        exceptionDto.setMessage("Product not found");
+//        exceptionDto.setResolutionDetails("Please enter a valid product id.");
+//
+//        return new ResponseEntity<>(exceptionDto, HttpStatus.NOT_FOUND);
+//    }
 }
