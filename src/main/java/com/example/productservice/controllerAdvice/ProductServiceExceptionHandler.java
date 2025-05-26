@@ -41,6 +41,7 @@ public class ProductServiceExceptionHandler {
         ExceptionDto exceptionDto = new ExceptionDto();
         exceptionDto.setMessage("Something went wrong.");
         exceptionDto.setResolutionDetails("Reload the page.");
+        e.printStackTrace();
 
         return new ResponseEntity<>(exceptionDto, HttpStatus.NOT_FOUND);
     }

@@ -21,7 +21,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Override
     void deleteById(Long id);
 
-    //@Query("SELECT p FROM Product p WHERE p.id = 1 ")
+   // @Query("SELECT p FROM Product p WHERE p.id = 1 ")
     //Optional<Product> findProductById(@Param("id") Long id);
 
     // select * from products where lower(name) like "%IPhone";
