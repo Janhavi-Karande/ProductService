@@ -22,7 +22,7 @@ public class ProductController {
     private RestTemplate restTemplate;
     private ProductService productService;
 
-    public ProductController(@Qualifier("productServiceImpl") ProductService productService,
+    public ProductController(ProductService productService,
                              RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
         this.productService = productService;

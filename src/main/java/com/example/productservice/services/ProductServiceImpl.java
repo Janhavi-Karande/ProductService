@@ -6,6 +6,7 @@ import com.example.productservice.models.Category;
 import com.example.productservice.models.Product;
 import com.example.productservice.repositories.CategoryRepository;
 import com.example.productservice.repositories.ProductRepository;
+import org.hibernate.annotations.SecondaryRow;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
